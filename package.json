@@ -1,0 +1,34 @@
+{
+  "name": "monilaria-schedule",
+  "version": "0.0.1",
+  "description": "A personal schedule app",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jiyinyiyong",
+  "license": "MIT",
+  "keywords": [
+    "schedule"
+  ],
+  "devDependencies": {
+    "cirru-script": "^0.2.1",
+    "cirru-script-loader": "0.1.0",
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "rsyncwrapper": "^0.4.2",
+    "run-sequence": "^1.0.2",
+    "stir-template": "^0.1.2",
+    "webpack": "^1.5.3",
+    "webpack-dev-server": "^1.7.0"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mvc-works/webpack-workflow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mvc-works/webpack-workflow/issues"
+  },
+  "homepage": "https://github.com/mvc-works/webpack-workflow"
+}
