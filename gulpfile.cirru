@@ -3,15 +3,16 @@ var
   gulp $ require :gulp
   sequence $ require :run-sequence
   exec $ . (require :child_process) :exec
-  env $ object
+  env $ {}
     :dev true
-    :main :http://localhost:8080/build/main.js
+    :main :http://repo:8080/build/main.js
+    :vendor :http://repo:8080/build/vendor.js
 
 gulp.task :rsync $ \ (cb)
   var
     wrapper $ require :rsyncwrapper
   wrapper.rsync
-    object
+    {}
       :ssh true
       :src $ array :index.html :build
       :recursive true
@@ -33,7 +34,8 @@ gulp.task :html $ \ (cb)
   if (not env.dev) $ do
     = assets $ require :./build/assets.json
     = env.main $ + :./build/ assets.main
-  fs.writeFile :index.html (html env) cb
+    = env.vendor $ + :./build/ assets.vendor
+  fs.writeFile :build/index.html (html env) cb
 
 gulp.task :del $ \ (cb)
   var
@@ -42,7 +44,7 @@ gulp.task :del $ \ (cb)
 
 gulp.task :webpack $ \ (cb)
   var
-    command $ cond env.dev :webpack ":webpack --config webpack.min.js"
+    command $ cond env.dev :webpack ":webpack --config webpack.min.cirru"
   exec command $ \ (err stdout stderr)
     console.log stdout
     console.log stderr
