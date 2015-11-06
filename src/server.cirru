@@ -1,10 +1,24 @@
 
 var
-  database $ require :./backend/database
+  recorder $ require :actions-recorder
+
+var
   differ $ require :./backend/differ
   expand $ require :./backend/expand
+  schema $ require :./schema
+  updater $ require :./updater
   websocket $ require :./backend/websocket
   Pipeline $ require :cumulo-pipeline
+
+recorder.setup $ {}
+  :initial schema.database
+  :updater updater
+
+var emitter $ \ (core)
+  differ.out.send core
+
+recorder.request emitter
+recorder.subscribe emitter
 
 websocket.setup $ {}
   :port 4005
@@ -15,9 +29,6 @@ differ.setup $ {}
 websocket.out.for $ \ (data)
   console.log :websocket.out
     JSON.stringify data
+  recorder.dispatch data.type data
 
-websocket.out.forward database.in
-database.out.forward differ.in
 differ.out.forward websocket.in
-
-differ.out.for $ \ (db)

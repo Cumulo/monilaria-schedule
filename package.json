@@ -27,6 +27,7 @@
     "webpack-dev-server": "^1.8.0"
   },
   "dependencies": {
+    "actions-recorder": "^1.6.1",
     "cumulo-pipeline": "0.0.3",
     "immutable": "^3.7.5",
     "immutablediff": "^0.4.2",
