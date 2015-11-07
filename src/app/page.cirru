@@ -23,7 +23,7 @@ var
   :getInitialState $ \ ()
     {}
       :path $ Immutable.List
-      :showDevTools true
+      :showDevTools false
 
   :onPathChange $ \ (newPath)
     @setState $ {} (:path newPath)

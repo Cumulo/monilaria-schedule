@@ -11,6 +11,9 @@ var
 var
   Page $ React.createFactory $ require :./app/page
 
+if module.hot $ do
+  module.hot.accept :./schema $ \ ()
+
 var
   store schema.store
   isSocketAlive false
@@ -31,6 +34,7 @@ var socket $ new WebSocket $ + :ws://repo:4005
       , undefined
   = store $ patch store (Immutable.fromJS data)
 
+  console.log :store: (store.toJS)
   ReactDOM.render
     Page $ {} (:store store) (:dispatch dispatch)
     document.querySelector :#app

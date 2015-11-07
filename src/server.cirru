@@ -17,6 +17,17 @@ recorder.setup $ {}
   :initial schema.database
   :updater updater
 
+if module.hot $ do
+  module.hot.accept ([] :./schema :./updater) $ \ ()
+    = schema $ require :./schema
+    = updater $ require :./updater
+    recorder.hotSetup $ {}
+      :initial schema.database
+      :updater updater
+  module.hot.accept ([] :./backend/expand) $ \ ()
+    = expand $ require :./backend/expand
+    recorder.dispatch :server/expand null null
+
 var wss $ new ws.Server $ {} (:port 4005)
 wss.on :connection $ \ (socket)
   var
