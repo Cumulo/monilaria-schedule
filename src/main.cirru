@@ -1,27 +1,42 @@
 
 var
-  store $ require :./frontend/store
-  websocket $ require :./frontend/websocket
-  actions $ require :./frontend/actions
-  page $ require :./app/page
-  Pipeline $ require :cumulo-pipeline
+  patch $ require :immutablepatch
+  React $ require :react
+  ReactDOM $ require :react-dom
+  Immutable $ require :immutable
 
-websocket.setup $ {}
-  :port 4005
-  :onopen $ \ ()
-    var accountInfo $ JSON.parse $ or
-      localStorage.getItem :immutable-chat-account
-      , :{}
-    if (? accountInfo.name) $ do
-      actions.action $ {}
-        :type :account/login
-        :data accountInfo
-    , undefined
+var
+  schema $ require :./schema
 
-websocket.out.forward store.in
-actions.out.forward websocket.in
+var
+  Page $ React.createFactory $ require :./app/page
 
-store.out.for $ \ (data)
-  page.in.send $ {}
-    :target :store
-    :data data
+var
+  store schema.store
+  isSocketAlive false
+
+var socket $ new WebSocket $ + :ws://repo:4005
+
+= socket.onopen $ \ ()
+  = isSocketAlive true
+
+= socket.onmessage $ \ (event)
+  var
+    data $ JSON.parse event.data
+    dispatch $ \ (type data)
+      if isSocketAlive $ do
+        socket.send $ JSON.stringify $ {}
+          :type type
+          :data data
+      , undefined
+  = store $ patch store (Immutable.fromJS data)
+
+  ReactDOM.render
+    Page $ {} (:store store) (:dispatch dispatch)
+    document.querySelector :#app
+
+= socket.onclose $ \ ()
+  = isSocketAlive false
+  setTimeout
+    \ () (window.location.reload)
+    , 10000

@@ -11,6 +11,10 @@ var Immutable $ require :immutable
   :name null
   :avatar null
 
+= exports.state $ Immutable.fromJS $ {}
+  :id null
+  :userId null
+
 = exports.database $ Immutable.fromJS $ {}
   :tasks $ []
   :users $ []

@@ -1,6 +1,7 @@
 
 var
   fs $ require :fs
+  webpack $ require :webpack
 
 = module.exports $ object
   :entry $ object
@@ -19,4 +20,7 @@ var
 
   :module $ object
     :loaders $ array
-      object (:test /\.cirru$) (:loader :cirru-script)
+      object (:test /\.cirru$) (:loader :react-hot!cirru-script)
+
+  :plugins $ []
+    new webpack.optimize.CommonsChunkPlugin :vendor :vendor.js

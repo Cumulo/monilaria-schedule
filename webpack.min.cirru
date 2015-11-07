@@ -17,6 +17,7 @@ var
   :resolve config.resolve
   :module config.module
   :plugins $ array
+    new webpack.optimize.CommonsChunkPlugin :vendor :vendor.js
     new webpack.optimize.UglifyJsPlugin $ object (:sourceMap false)
     \ ()
       this.plugin :done $ \ (stats)

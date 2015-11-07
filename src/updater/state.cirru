@@ -2,17 +2,17 @@
 var
   schema $ require :../schema
 
-= exports.connect $ \ (db action)
+= exports.connect $ \ (db data meta)
   var
-    stateId action.state
+    stateId $ meta.get :stateId
     userId $ db.getIn $ [] :states stateId :userId
   ... db
-    updateIn ([] :states action.stateId) $ \ (prev)
-      schema.state.set :id action.stateId
+    updateIn ([] :states stateId) $ \ (prev)
+      schema.state.set :id stateId
 
-= exports.disconnect $ \ (db action)
+= exports.disconnect $ \ (db data meta)
   var
-    stateId action.stateId
+    stateId $ meta.get :stateId
     userId $ db.getIn $ [] :states stateId :userId
   ... db
     deleteIn $ [] :states stateId
