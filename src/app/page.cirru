@@ -9,6 +9,7 @@ var
 
 var
   DevTools $ React.createFactory $ require :actions-recorder/lib/devtools
+  JSONViewer $ React.createFactory $ require :react-lite-json-viewer
 
 var
   ({}~ div) React.DOM
@@ -23,10 +24,15 @@ var
   :getInitialState $ \ ()
     {}
       :path $ Immutable.List
+      :storePath $ Immutable.List
       :showDevTools false
+      :showStore false
 
   :onPathChange $ \ (newPath)
     @setState $ {} (:path newPath)
+
+  :onStorePathChange $ \ (newPath)
+    @setState $ {} (:storePath newPath)
 
   :componentDidMount $ \ ()
     window.addEventListener :keydown @onWindowKeydown
@@ -36,25 +42,33 @@ var
 
   :onWindowKeydown $ \ (event)
     if
-      and
-        is (keycode event.keyCode) :a
-        and event.shiftKey $ or event.metaKey event.ctrlKey
-      do
-        @setState $ {} (:showDevTools $ not @state.showDevTools)
+      and event.shiftKey $ or event.metaKey event.ctrlKey
+      do $ switch (keycode event.keyCode)
+        :a
+          @setState $ {} (:showDevTools $ not @state.showDevTools)
+        :s
+          @setState $ {} (:showStore $ not @state.showStore)
     , undefined
 
   :onDispatch $ \ (type data)
     @props.dispatch type data
 
   :renderDevTools $ \ ()
+    console.log @state.showStore
     div ({} (:style $ @styleDevTools))
-      DevTools $ {}
-        :core $ @props.store.get :core
-        :path @state.path
-        :onPathChange @onPathChange
-        :height window.innerHeight
-        :width window.innerWidth
-        :dispatch @onDispatch
+      cond @state.showStore
+        JSONViewer $ {}
+          :path @state.storePath
+          :onChange @onStorePathChange
+          :data @props.store
+          :height 500
+        DevTools $ {}
+          :core $ @props.store.get :core
+          :path @state.path
+          :onPathChange @onPathChange
+          :height window.innerHeight
+          :width window.innerWidth
+          :dispatch @onDispatch
 
   :render $ \ ()
     div ({} (:style $ @styleRoot))
