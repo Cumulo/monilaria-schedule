@@ -16,8 +16,8 @@ var
     userId $ db.getIn $ [] :states stateId :userId
   ... db
     deleteIn $ [] :states stateId
-    updateIn ([] :users) $ \ (users)
-      users.map $ \ (aUser)
+    updateIn ([] :profiles) $ \ (profiles)
+      profiles.map $ \ (aUser)
         cond (is (aUser.get :id) userId)
           aUser.set :isOnline false
           , aUser

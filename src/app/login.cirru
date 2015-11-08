@@ -30,6 +30,11 @@ var
   :onPasswordChange $ \ (event)
     @setState $ {} (:password event.target.value)
 
+  :onLogin $ \ ()
+    @props.dispatch :account/login $ {}
+      :name @state.name
+      :password @state.password
+
   :render $ \ ()
     div ({} (:style $ @styleRoot))
       div ({} (:style $ @styleHint)) ":Login or create account:"
@@ -47,7 +52,9 @@ var
         :placeholder ":Password"
       Space $ {} $ :height 10
       div ({} (:style $ @styleControl))
-        div ({} (:style $ @styleButton)) :Login
+        div
+          {} (:style $ @styleButton) (:onClick @onLogin)
+          , :Login
 
   :styleRoot $ \ ()
     {}
@@ -84,4 +91,3 @@ var
       :fontFamily base.contentFonts
       :fontSize :14px
       :color $ hsl 0 0 40
-

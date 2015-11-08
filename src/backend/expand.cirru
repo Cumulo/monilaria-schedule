@@ -13,12 +13,17 @@ var
       state.get :isLoggedIn
       , false
 
+  console.log
+    db.getIn $ [] :profiles
+    state.get :accountId
+
   ... schema.store
     set :tasks $ db.get :tasks
     set :state state
     set :members $ cond isLoggedIn
-      db.get :members
+      ... db (get :profiles)
       Immutable.List
     set :profile $ cond isLoggedIn
-      db.getIn $ [] :profiles (state.getIn :accountId)
+      db.getIn $ [] :profiles (state.get :accountId)
+      , null
     set :core core

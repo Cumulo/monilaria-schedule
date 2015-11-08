@@ -19,6 +19,7 @@ var Immutable $ require :immutable
   :name null
   :avatar null
   :about :
+  :isOnline false
 
 = exports.notice $ Immutable.fromJS $ {}
   :id null
@@ -34,9 +35,9 @@ var Immutable $ require :immutable
 
 = exports.database $ Immutable.fromJS $ {}
   :tasks $ {}
-  :users $ {}
   :states $ {}
   :accounts $ {}
+  :profiles $ {}
 
 = exports.store $ Immutable.fromJS $ {}
   :tasks $ []
