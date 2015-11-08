@@ -9,6 +9,7 @@ var
 
 var
   Space $ React.createFactory $ require :react-lite-space
+  TimedInput $ React.createFactory $ require :./timed-input
 
 var
   ({}~ div input span) React.DOM
@@ -20,50 +21,57 @@ var
     :task $ . (React.PropTypes.instanceOf Immutable.Map) :isRequired
     :dispatch React.PropTypes.func.isRequired
 
-  :onTitleChange $ \ (event)
+  :onTitleChange $ \ (text)
     @props.dispatch :task/update $ {}
-      :title event.target.value
+      :title text
       :id $ @props.task.get :id
 
-  :onBeginChange $ \ (event)
+  :onBeginChange $ \ (text)
     @props.dispatch :task/update $ {}
-      :begin event.target.value
+      :begin text
       :id $ @props.task.get :id
 
-  :onDurationChange $ \ (event)
+  :onDurationChange $ \ (text)
     @props.dispatch :task/update $ {}
-      :duration event.target.value
+      :duration text
       :id $ @props.task.get :id
+
+  :onRequest $ \ ()
+    @props.dispatch :task/request (@props.task.get :id)
 
   :render $ \ ()
     div ({} (:style $ @styleRoot))
-      input $ {} (:style $ @styleInput)
+      TimedInput $ {} (:style $ @styleInput)
         :value $ @props.task.get :title
         :onChange @onTitleChange
+        :time $ @props.task.get :time
       Space $ {} $ :height 10
       div ({} (:style $ @styleControl))
         span ({} (:style $ @styleField)) :Stage:
         Space $ {} $ :width 5
         span ({} (:style $ @styleLabel)) $ @props.task.get :stage
         Space $ {} $ :width 20
-        span ({} (:style $ @styleField)) :Requests:
-        Space $ {} $ :width 5
-        span ({} (:style $ @styleLabel)) $ @props.task.get :requests
+        span ({} (:onClick @onRequest))
+          span ({} (:style $ @styleField)) :Requests:
+          Space $ {} $ :width 5
+          span ({} (:style $ @styleLabel)) $ @props.task.get :requests
       Space $ {} $ :height 10
       div ({} (:style $ @styleControl))
         span ({} (:style $ @styleField)) :Begin:
         Space $ {} $ :width 5
-        input $ {} (:style $ @styleInlineInput)
-          :value $ @props.task.get :stage
+        TimedInput $ {} (:style $ @styleInlineInput)
+          :value $ @props.task.get :begin
           :onChange @onBeginChange
           :placeholder ":write down the time you began"
+          :time $ @props.task.get :time
         Space $ {} $ :width 20
         span ({} (:style $ @styleField)) :Duration:
         Space $ {} $ :width 5
-        input $ {} (:style $ @styleInlineInput)
-          :vlaue $ @props.task.get :requests
+        TimedInput $ {} (:style $ @styleInlineInput)
+          :value $ @props.task.get :duration
           :onChange @onDurationChange
           :placeholder ":Estimate a duration"
+          :time $ @props.task.get :time
 
   :styleRoot $ \ ()
     {}
@@ -73,6 +81,7 @@ var
       :display :inline-block
       :padding ":10px"
       :marginRight 10
+      :marginBottom 10
 
   :styleInput $ \ ()
     {}

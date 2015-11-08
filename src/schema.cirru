@@ -8,6 +8,7 @@ var Immutable $ require :immutable
   :begin null
   :duration null
   :requests 0
+  :updated null
 
 = exports.account $ Immutable.fromJS $ {}
   :id null

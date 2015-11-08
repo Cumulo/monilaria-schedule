@@ -11,6 +11,7 @@ var identity $ \ (x) x
 
     :task/create task.create
     :task/update task.update
+    :task/request task.request
 
     :state/connect state.connect
     :state/disconnect state.disconnect
