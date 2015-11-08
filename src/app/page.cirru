@@ -8,6 +8,8 @@ var
   schema $ require :../schema
 
 var
+  Table $ React.createFactory $ require :./table
+  Bench $ React.createFactory $ require :./bench
   DevTools $ React.createFactory $ require :actions-recorder/lib/devtools
   JSONViewer $ React.createFactory $ require :react-lite-json-viewer
 
@@ -54,7 +56,6 @@ var
     @props.dispatch type data
 
   :renderDevTools $ \ ()
-    console.log @state.showStore
     div ({} (:style $ @styleDevTools))
       cond @state.showStore
         JSONViewer $ {}
@@ -74,6 +75,15 @@ var
     div ({} (:style $ @styleRoot))
       cond @state.showDevTools
         @renderDevTools
+      div ({} (:style $ @styleContainer))
+        Table $ {}
+          :tasks $ @props.store.get :tasks
+          :dispatch @props.dispatch
+        Bench $ {}
+          :members $ @props.store.get :members
+          :dispatch @props.dispatch
+          :state $ @props.store.get :state
+          :profile $ @props.store.get :profile
 
   :styleRoot $ \ ()
     {}
@@ -87,3 +97,14 @@ var
       :left 0
       :backgroundColor $ hsl 0 20 10 0.8
       :zIndex 9999
+
+  :styleContainer $ \ ()
+    {}
+      :position :fixed
+      :width :100%
+      :height :100%
+      :top 0
+      :left 0
+      :display :flex
+      :flexDirection :row
+      :alignItems :strech

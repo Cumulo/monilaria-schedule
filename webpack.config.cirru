@@ -6,7 +6,7 @@ var
 = module.exports $ object
   :entry $ object
     :vendor $ [] :react :react-dom :immutable
-      , :webpack-dev-server/client?http://0.0.0.0:8080
+      , :webpack-dev-server/client?http://repo:8080
       , :webpack/hot/dev-server
     :main $ [] :./src/main
 

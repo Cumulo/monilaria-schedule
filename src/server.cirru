@@ -67,7 +67,7 @@ recorder.subscribe $ \ (core)
   stateIdList.forEach $ \ (stateId)
     var
       reference $ . wsCaches stateId
-      store $ expand core
+      store $ expand core stateId
       changes $ diff reference.cache store
     reference.socket.send $ JSON.stringify changes
     = reference.cache store

@@ -42,3 +42,4 @@ var Immutable $ require :immutable
   :tasks $ []
   :members $ []
   :profile null
+  :state null

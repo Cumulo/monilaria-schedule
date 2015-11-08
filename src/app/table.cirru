@@ -11,10 +11,12 @@ var
   :displayName :app-table
 
   :propTypes $ {}
-    :topic $ . (React.PropTypes.instanceOf Immutable.Map) :isRequired
+    :tasks $ . (React.PropTypes.instanceOf Immutable.Map) :isRequired
+    :dispatch React.PropTypes.func.isRequired
 
   :render $ \ ()
     div ({} (:style $ @styleRoot))
 
   :styleRoot $ \ ()
     {}
+      :flex 1
