@@ -13,10 +13,6 @@ var
       state.get :isLoggedIn
       , false
 
-  console.log
-    db.getIn $ [] :profiles
-    state.get :accountId
-
   ... schema.store
     set :tasks $ db.get :tasks
     set :state state

@@ -95,7 +95,7 @@ var
       :height :100%
       :top 0
       :left 0
-      :backgroundColor $ hsl 0 20 10 0.8
+      :backgroundColor $ hsl 0 20 10 0.4
       :zIndex 9999
 
   :styleContainer $ \ ()

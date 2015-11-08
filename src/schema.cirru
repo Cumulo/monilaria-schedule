@@ -7,7 +7,7 @@ var Immutable $ require :immutable
   :stage :initial
   :begin null
   :duration null
-  :request 0
+  :requests 0
 
 = exports.account $ Immutable.fromJS $ {}
   :id null
@@ -40,7 +40,7 @@ var Immutable $ require :immutable
   :profiles $ {}
 
 = exports.store $ Immutable.fromJS $ {}
-  :tasks $ []
-  :members $ []
+  :tasks $ {}
+  :members $ {}
   :profile null
   :state null

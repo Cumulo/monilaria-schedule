@@ -39,10 +39,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mvc-works/webpack-workflow.git"
+    "url": "https://github.com/Cumulo/monilaria-schedule.git"
   },
   "bugs": {
-    "url": "https://github.com/mvc-works/webpack-workflow/issues"
+    "url": "https://github.com/Cumulo/monilaria-schedule/issues"
   },
-  "homepage": "https://github.com/mvc-works/webpack-workflow"
+  "homepage": "https://github.com/Cumulo/monilaria-schedule"
 }

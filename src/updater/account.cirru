@@ -19,8 +19,6 @@ var
       is password (account.get :password)
       , false
 
-  console.log hasUser
-
   cond hasUser
     cond isMatch
       ... db
